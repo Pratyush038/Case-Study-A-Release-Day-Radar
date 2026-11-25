@@ -7,7 +7,7 @@ In short, trailer views barely track the gross, but trailer likes and Wikipedia 
 ## What's in here
 
 ```
-code/      the scripts, numbered in the order you run them
+code/      scripts, numbered in the order you run them
 data/      film list, hand-checked trailer list, raw downloads, cleaned files
 sql/       MySQL schema, queries and their output
 charts/    every chart in the report
