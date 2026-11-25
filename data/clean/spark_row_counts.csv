@@ -1,0 +1,10 @@
+step,rows
+1. raw rows (YouTube comments + IMDb reviews),82522
+   1a. of which YouTube comments,32522
+   1b. of which IMDb reviews,50000
+2. empty text dropped,82520
+3. duplicate ids dropped,82520
+   4a. YouTube rows whose time did not parse,0
+7. clean rows,82520
+8. distinct film x term pairs,62443
+10. film summary rows,28

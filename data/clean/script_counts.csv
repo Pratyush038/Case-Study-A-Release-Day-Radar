@@ -1,0 +1,9 @@
+source,script,count
+imdb,latin,50000
+youtube,latin,27733
+youtube,no letters,2341
+youtube,devanagari,775
+youtube,telugu,636
+youtube,malayalam,461
+youtube,tamil,351
+youtube,kannada,223

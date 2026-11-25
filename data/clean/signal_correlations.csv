@@ -1,0 +1,9 @@
+signal,spearman_r,p_value,films
+Trailer views (YouTube),0.15,0.515,21
+Trailer likes (YouTube),0.58,0.006,21
+Likes per 100 views (YouTube),0.32,0.157,21
+"Trailer week, Wikipedia views",0.35,0.119,21
+"Week before release, Wikipedia views",0.29,0.191,21
+"Opening 3 days, Wikipedia views",0.59,0.006,21
+Comment sentiment before release,0.25,0.278,21
+Comment sentiment after release,0.4,0.074,21

@@ -1,0 +1,7 @@
+aspect,comments,mean_sentiment,pct_negative
+music,856,0.432,9.229
+story,721,0.313,22.607
+acting,858,0.463,13.986
+vfx,165,0.265,27.273
+action,383,0.318,24.282
+length,118,-0.121,65.254

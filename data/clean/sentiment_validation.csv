@@ -1,0 +1,3 @@
+method,accuracy_pct,pos_reviews_called_pos_pct,neg_reviews_called_neg_pct
+plain VADER,69.7,85.9,53.5
+VADER + domain words,69.7,86.0,53.3

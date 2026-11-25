@@ -1,0 +1,178 @@
+
+-- Q1. How big is each table?
+SELECT 'films' AS tbl, COUNT(*) AS n FROM films
+UNION ALL SELECT 'trailers', COUNT(*) FROM trailers
+UNION ALL SELECT 'pageviews_daily', COUNT(*) FROM pageviews_daily
+UNION ALL SELECT 'youtube_comments', COUNT(*) FROM youtube_comments
+
+             tbl     n
+           films    28
+        trailers    28
+ pageviews_daily  1924
+youtube_comments 32520
+
+------------------------------------------------------------
+-- Q2. (JOIN) Trailer views and likes next to the box office, biggest gross first
+SELECT f.wiki_title, f.language, ROUND(t.views / 1e6, 1) AS trailer_views_m,
+       ROUND(t.likes / 1e3, 0) AS trailer_likes_k, ROUND(f.gross_cr, 0) AS gross_cr
+FROM films f
+JOIN trailers t ON t.film_id = f.film_id
+ORDER BY f.gross_cr DESC
+
+              wiki_title  language  trailer_views_m  trailer_likes_k  gross_cr
+ Dhurandhar: The Revenge     Hindi             93.5           1327.0    1852.0
+              Dhurandhar     Hindi            101.9            914.0    1389.0
+      Kantara: Chapter 1   Kannada             23.9            798.0     851.0
+                 Chhaava     Hindi             81.7           1238.0     803.0
+      Coolie (2025 film)     Tamil             29.5            840.0     594.0
+         Saiyaara (film)     Hindi             81.4            802.0     579.0
+                Border 2     Hindi             82.4            633.0     464.0
+            War 2 (film)     Hindi             50.2            738.0     334.0
+                   Peddi    Telugu             59.4            516.0     333.0
+            Jana Nayagan     Tamil             64.2           1582.0     318.0
+Lokah Chapter 1: Chandra Malayalam             16.3            199.0     303.0
+        They Call Him OG    Telugu             18.0            744.0     296.0
+            L2: Empuraan Malayalam             17.7            547.0     267.0
+      Sitaare Zameen Par     Hindi             88.9            852.0     266.0
+           Bhooth Bangla     Hindi             57.2            434.0     247.0
+           Raid 2 (film)     Hindi             66.0            583.0     243.0
+             Housefull 5     Hindi             33.9            606.0     243.0
+           Good Bad Ugly     Tamil              2.9             92.0     224.0
+            The RajaSaab    Telugu             28.6            630.0     208.0
+    Sikandar (2025 film)     Hindi             70.8            986.0     176.0
+                  Thamma     Hindi            100.9            699.0     170.0
+             Jolly LLB 3     Hindi             31.1            265.0     166.0
+        Kesari Chapter 2     Hindi             44.0            457.0     143.0
+   Hari Hara Veera Mallu    Telugu             54.9            790.0     114.0
+   Thug Life (2025 film)     Tamil             36.1            396.0      98.0
+                Baaghi 4     Hindi             10.6            289.0      66.0
+        Son of Sardaar 2     Hindi             48.8            258.0      61.0
+                   Ikkis     Hindi             39.8            397.0      37.0
+
+------------------------------------------------------------
+-- Q3. (JOIN + GROUP BY) Hindi vs South Indian films: rupees of gross per trailer view
+SELECT f.language_group, COUNT(*) AS films,
+       ROUND(AVG(f.gross_cr), 0) AS avg_gross_cr,
+       ROUND(AVG(t.views) / 1e6, 1) AS avg_trailer_views_m,
+       ROUND(SUM(f.gross_cr) * 1e7 / SUM(t.views), 1) AS rupees_gross_per_trailer_view
+FROM films f JOIN trailers t ON t.film_id = f.film_id
+GROUP BY f.language_group
+
+language_group  films  avg_gross_cr  avg_trailer_views_m  rupees_gross_per_trailer_view
+         Hindi     17         426.0                 63.7                           66.9
+  South Indian     11         328.0                 32.0                          102.6
+
+------------------------------------------------------------
+-- Q4. (3-table JOIN + GROUP BY) Opening 3 days on Wikipedia vs trailer views vs gross
+SELECT f.wiki_title, SUM(p.views) AS opening_3day_pageviews,
+       ROUND(t.views / 1e6, 1) AS trailer_views_m, ROUND(f.gross_cr, 0) AS gross_cr
+FROM films f
+JOIN pageviews_daily p ON p.film_id = f.film_id AND p.day_from_release BETWEEN 0 AND 2
+JOIN trailers t ON t.film_id = f.film_id
+GROUP BY f.film_id, f.wiki_title, t.views, f.gross_cr
+ORDER BY opening_3day_pageviews DESC
+
+              wiki_title  opening_3day_pageviews  trailer_views_m  gross_cr
+ Dhurandhar: The Revenge               2267651.0             93.5    1852.0
+      Coolie (2025 film)               1635376.0             29.5     594.0
+            War 2 (film)               1213027.0             50.2     334.0
+      Kantara: Chapter 1               1195103.0             23.9     851.0
+              Dhurandhar               1159581.0            101.9    1389.0
+                 Chhaava               1010775.0             81.7     803.0
+    Sikandar (2025 film)                996939.0             70.8     176.0
+                Border 2                928278.0             82.4     464.0
+            The RajaSaab                843487.0             28.6     208.0
+        They Call Him OG                646897.0             18.0     296.0
+            L2: Empuraan                644756.0             17.7     267.0
+             Housefull 5                627212.0             33.9     243.0
+      Sitaare Zameen Par                550183.0             88.9     266.0
+            Jana Nayagan                542405.0             64.2     318.0
+   Thug Life (2025 film)                535103.0             36.1      98.0
+           Good Bad Ugly                524465.0              2.9     224.0
+                   Peddi                485626.0             59.4     333.0
+                  Thamma                471657.0            100.9     170.0
+                Baaghi 4                468211.0             10.6      66.0
+        Kesari Chapter 2                420604.0             44.0     143.0
+           Bhooth Bangla                403725.0             57.2     247.0
+Lokah Chapter 1: Chandra                343915.0             16.3     303.0
+   Hari Hara Veera Mallu                303182.0             54.9     114.0
+             Jolly LLB 3                300152.0             31.1     166.0
+           Raid 2 (film)                299368.0             66.0     243.0
+        Son of Sardaar 2                224276.0             48.8      61.0
+         Saiyaara (film)                156976.0             81.4     579.0
+                   Ikkis                 44906.0             39.8      37.0
+
+------------------------------------------------------------
+-- Q5. (3-table JOIN + GROUP BY) Mean comment sentiment per film, before and after release
+SELECT f.wiki_title,
+       ROUND(AVG(CASE WHEN c.published_ist <  f.release_date THEN c.compound END), 3) AS before_release,
+       ROUND(AVG(CASE WHEN c.published_ist >= f.release_date THEN c.compound END), 3) AS after_release,
+       COUNT(c.compound) AS scored_comments
+FROM youtube_comments c
+JOIN trailers t ON t.video_id = c.video_id
+JOIN films f ON f.film_id = t.film_id
+GROUP BY f.film_id, f.wiki_title
+ORDER BY after_release DESC
+
+              wiki_title  before_release  after_release  scored_comments
+             Housefull 5           0.647          0.551             1173
+         Saiyaara (film)           0.562          0.532             1126
+      Kantara: Chapter 1           0.506          0.452              730
+      Sitaare Zameen Par           0.623          0.427             1091
+Lokah Chapter 1: Chandra           0.502          0.420              872
+           Raid 2 (film)           0.457          0.398              942
+             Jolly LLB 3           0.458          0.362              972
+                Border 2           0.393          0.358              880
+           Good Bad Ugly           0.437          0.341              799
+                  Thamma           0.586          0.318             1049
+              Dhurandhar           0.371          0.316             1166
+                   Peddi           0.346          0.314              900
+        They Call Him OG           0.640          0.312              987
+ Dhurandhar: The Revenge           0.284          0.309             1197
+                   Ikkis           0.314          0.297              925
+                 Chhaava           0.642          0.297              924
+           Bhooth Bangla           0.522          0.295             1131
+        Kesari Chapter 2           0.578          0.294             1052
+            L2: Empuraan           0.615          0.290              804
+            Jana Nayagan           0.399          0.281             1073
+    Sikandar (2025 film)           0.622          0.272             1020
+   Thug Life (2025 film)           0.402          0.257              929
+   Hari Hara Veera Mallu           0.466          0.254              832
+      Coolie (2025 film)           0.575          0.246             1124
+            War 2 (film)           0.526          0.207             1089
+                Baaghi 4           0.519          0.203             1005
+            The RajaSaab           0.434          0.190              920
+        Son of Sardaar 2           0.313          0.140             1021
+
+------------------------------------------------------------
+-- Q6. (GROUP BY) Which part of a film do comments talk about, and how warmly?
+SELECT 'music' AS aspect, COUNT(*) AS comments, ROUND(AVG(compound), 3) AS mean_sentiment FROM youtube_comments WHERE about_music AND compound IS NOT NULL
+UNION ALL SELECT 'story', COUNT(*), ROUND(AVG(compound), 3) FROM youtube_comments WHERE about_story AND compound IS NOT NULL
+UNION ALL SELECT 'acting', COUNT(*), ROUND(AVG(compound), 3) FROM youtube_comments WHERE about_acting AND compound IS NOT NULL
+UNION ALL SELECT 'vfx', COUNT(*), ROUND(AVG(compound), 3) FROM youtube_comments WHERE about_vfx AND compound IS NOT NULL
+UNION ALL SELECT 'action', COUNT(*), ROUND(AVG(compound), 3) FROM youtube_comments WHERE about_action AND compound IS NOT NULL
+UNION ALL SELECT 'length', COUNT(*), ROUND(AVG(compound), 3) FROM youtube_comments WHERE about_length AND compound IS NOT NULL
+
+aspect  comments  mean_sentiment
+ music       856           0.432
+ story       721           0.313
+acting       858           0.463
+   vfx       165           0.265
+action       383           0.318
+length       118          -0.121
+
+------------------------------------------------------------
+-- Q7. (GROUP BY with CASE) Hits and flops by gross-to-budget ratio
+SELECT CASE WHEN budget_cr IS NULL THEN 'budget unknown'
+            WHEN gross_cr / budget_cr >= 2 THEN 'hit (2x budget or more)'
+            WHEN gross_cr / budget_cr >= 1 THEN 'average (1x to 2x)'
+            ELSE 'flop (below budget)' END AS verdict,
+       COUNT(*) AS films, GROUP_CONCAT(wiki_title ORDER BY gross_cr DESC SEPARATOR ', ') AS which_films
+FROM films
+GROUP BY verdict
+
+                verdict  films                                                                                                                                                                      which_films
+     average (1x to 2x)      8                                                                            Coolie (2025 film), Border 2, Peddi, They Call Him OG, L2: Empuraan, Housefull 5, Thamma, Jolly LLB 3
+         budget unknown      3                                                                                                                          Dhurandhar: The Revenge, Dhurandhar, Kantara: Chapter 1
+    flop (below budget)     11 War 2 (film), Jana Nayagan, Good Bad Ugly, The RajaSaab, Sikandar (2025 film), Kesari Chapter 2, Hari Hara Veera Mallu, Thug Life (2025 film), Baaghi 4, Son of Sardaar 2, Ikkis
+hit (2x budget or more)      6                                                                             Chhaava, Saiyaara (film), Lokah Chapter 1: Chandra, Sitaare Zameen Par, Bhooth Bangla, Raid 2 (film)

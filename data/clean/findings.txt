@@ -1,0 +1,53 @@
+Rank correlation with worldwide gross, 21 films of 2025:
+                              signal  spearman_r  p_value  films
+             Trailer views (YouTube)        0.15    0.515     21
+             Trailer likes (YouTube)        0.58    0.006     21
+       Likes per 100 views (YouTube)        0.32    0.157     21
+       Trailer week, Wikipedia views        0.35    0.119     21
+Week before release, Wikipedia views        0.29    0.191     21
+     Opening 3 days, Wikipedia views        0.59    0.006     21
+    Comment sentiment before release        0.25    0.278     21
+     Comment sentiment after release        0.40    0.074     21
+
+Buzz index vs log gross on 2025 films: r = 0.42 (explains 18% of the spread)
+
+Opening-3-day Wikipedia views vs log gross on 2025 films: r = 0.52 (explains 27%)
+
+2026 films, never used in fitting:
+             wiki_title  gross_cr  pred_from_buzz_cr  miss_buzz  pred_from_opening_cr  miss_opening
+               Border 2     464.5              329.2        1.4                 364.1           1.3
+           The RajaSaab     208.4              225.7        1.1                 340.7           1.6
+Dhurandhar: The Revenge    1852.4              433.9        4.3                 675.9           2.7
+          Bhooth Bangla     247.3              238.2        1.0                 204.5           1.2
+                  Peddi     333.4              246.6        1.4                 232.4           1.4
+           Jana Nayagan     318.0              478.7        1.5                 250.9           1.3
+                  Ikkis      37.0              143.9        3.9                  44.7           1.2
+
+Median miss on 2026 films: buzz index 1.41x, opening 3 days 1.28x
+
+Above or below the 2025 median gross (₹243 cr): buzz index called 6 of 7 right
+
+Above or below the 2025 median gross (₹243 cr): opening 3 days called 4 of 7 right
+
+sentiment_after vs (actual gross / buzz-index prediction), all films: rank r = 0.45, p = 0.018, n = 28
+
+pv_week2_vs_week1_pct vs (actual gross / buzz-index prediction), all films: rank r = 0.51, p = 0.006, n = 28
+
+Day of peak Wikipedia interest relative to release: {0: 2, 1: 16, 2: 4, 3: 3, 5: 2, 9: 1}
+
+Week 2 after release as % of week 1: median 43%, range 23% to 181%
+
+Busiest single day: 786,957 views (dhurandhar2), about 32,790 an hour
+
+Aspects in Latin-script comments (all films):
+aspect  comments  mean_sentiment  pct_negative
+ music       856           0.432         9.229
+ story       721           0.313        22.607
+acting       858           0.463        13.986
+   vfx       165           0.265        27.273
+action       383           0.318        24.282
+length       118          -0.121        65.254
+
+Hindi: 17 films, trailer views vs gross rank r = 0.71; median ₹53 gross per trailer view
+
+South Indian: 11 films, trailer views vs gross rank r = 0.07; median ₹151 gross per trailer view

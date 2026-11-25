@@ -1,0 +1,14 @@
+# secrets and local tools
+.env
+.venv/
+__pycache__/
+.DS_Store
+spark-warehouse/
+
+# files over 50 MB, rebuilt by the scripts (see README)
+data/raw/imdb/
+data/raw/imdb_reviews.csv
+data/clean/text_clean.parquet/
+
+# Office lock files
+~$*

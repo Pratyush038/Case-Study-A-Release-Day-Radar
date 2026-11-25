@@ -1,0 +1,7 @@
+IMDb 50K check (compound >= 0.05 = positive):
+              method  accuracy_pct  pos_reviews_called_pos_pct  neg_reviews_called_neg_pct
+         plain VADER          69.7                        85.9                        53.5
+VADER + domain words          69.7                        86.0                        53.3
+VADER is better at spotting praise than criticism; negative reviews with mean compound -0.05, positive 0.68
+3,643 YouTube comments contain 🔥 (11.2%). Their mean score moves from -0.28 (plain VADER) to +0.72 with the domain words
+Share of text in Latin script (scored): {'youtube': 85.3}

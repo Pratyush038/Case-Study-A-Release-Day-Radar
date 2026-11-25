@@ -1,0 +1,16 @@
+pandas<3
+numpy
+matplotlib
+seaborn
+requests
+python-dotenv
+lxml
+openpyxl
+pyspark
+pyarrow
+vaderSentiment
+sqlalchemy
+pymysql
+python-pptx
+python-docx
+pypandoc

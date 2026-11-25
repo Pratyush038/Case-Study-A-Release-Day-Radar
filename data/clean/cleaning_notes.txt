@@ -1,0 +1,14 @@
+Gross given as a range for 12 of 28 films, budget for 14; we use the midpoint. 'est.' on 12 grosses and 3 budgets.
+Widest gross range: coolie 514-675, dhurandhar 1351-1428, war2 303-364
+Budget set to missing: dhurandhar, dhurandhar2 (one budget shared by two films); budget missing on Wikipedia: kantara1.
+Release weekdays: {'Thursday': 14, 'Friday': 12, 'Sunday': 1, 'Tuesday': 1}
+Runtime missing for 0 films: 
+Trailer lead time: 3 to 201 days, median 14
+Trailer views 2,907,776 to 101,888,955 (35x apart)
+Name matching Wikipedia vs YouTube: 27 of 28 exact after normalising; the rest: L2E Empuraan Trailer (Malayalam) -> L2: Empuraan (0.95)
+Films found in the Wikipedia gross ranking tables: 18 of 28
+Gross cross-check: infobox and ranking table overlap for 17 of 18 films; differ: og (₹293–300 crore vs ₹155 crore)
+Pageview days with no record: 28 of 1924. 28 fall before the page existed (filled with 0: nobody can read a page that does not exist), 0 inside the series (filled with 0: the API leaves out days with no views).
+Films whose page did not exist on trailer day: none
+Films whose Wikipedia page had more than one title (views summed over all of them): 21 of 28, up to 8 titles (dhurandhar2)
+Views that would be lost by reading only today's title: 6.9% of all views in the windows
